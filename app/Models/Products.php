@@ -18,6 +18,6 @@ class Products extends Model
         "description",
         "qty",
         "status",
-        "category_id"
+        "category_id",
     ];
 }

@@ -15,6 +15,11 @@ class CreateTableOrders extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->dateTime("order_date");
+            $table->unsignedDecimal("grand_total",12,4);
+            $table->text("shipping_address");
+            $table->string("customer_tel",20);
+            $table->unsignedTinyInteger("status")->default(0);
             $table->timestamps();
         });
     }

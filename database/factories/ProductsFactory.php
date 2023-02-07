@@ -15,12 +15,13 @@ class ProductsFactory extends Factory
     public function definition()
     {
         return [
-            "name"=>$this->faker->unique()->name,
-            "price" =>$this->faker->unique()->name,
-            "thumbnail"=>$this->faker->name,
-            "description"=>$this->faker->name,
-            "qty"=>$this->faker->name,
-            "category_id"=>$this->faker->text()
+            "name"=>$this->faker->name,
+            "price" =>random_int(100,1000),
+            "thumbnail"=>$this->faker->imageUrl(),
+            "description"=>$this->faker->realText(500),
+            "qty"=>random_int(10,100),
+//            "status"=>
+            "category_id"=>random_int(1,100)
         ];
     }
 }
