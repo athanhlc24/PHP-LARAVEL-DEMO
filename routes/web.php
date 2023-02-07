@@ -17,7 +17,7 @@ Route::get('/',[App\Http\Controllers\WebController::class,"home"]);
 Route::get('about-us', [App\Http\Controllers\WebController::class,"aboutUs"]);
 
 //  product
-Route::get("/admin/product",[App\Http\Controllers\Admin\ProductController::class,"listAll"]);
-Route::get("/admin/create",[App\Http\Controllers\Admin\ProductController::class,"create"]);
-Route::post("/admin/create",[App\Http\Controllers\Admin\ProductController::class,"store"]);
+Route::get("/admin/product",[\App\Http\Controllers\Admin\ProductController::class,"listAll"]);
+Route::get("/admin/product/create",[\App\Http\Controllers\Admin\ProductController::class,"create"]);
+Route::post("/admin/product/create",[\App\Http\Controllers\Admin\ProductController::class,"store"]);
 

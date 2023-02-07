@@ -7,6 +7,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @include('admin.html.css')
+    @yield("custom_css")
     <title>@yield("title","Trang quan tri noi dung")</title>
 </head>
 <body>
@@ -567,6 +568,7 @@
         </aside>
         <!-- /.control-sidebar -->
         @include('admin.html.js')
+        @yield("custom_js")
     </div>
 </body>
 </html>
