@@ -6,7 +6,7 @@
 
 @section("content_header")
     <div class="col-sm-6">
-        <h1 class="m-0 text-dark">Create a new product</h1>
+        <h1 class="m-0 text-dark">Edit a new product</h1>
     </div><!-- /.col -->
 @endsection
 @section("main_content")
@@ -16,37 +16,40 @@
             <!-- general form elements -->
             <div class="card card-primary">
                 <div class="card-header">
-                    <h3 class="card-title">Product information</h3>
+                    <h3 class="card-title">Edit Product information</h3>
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form method="post" action="{{url("/admin/product/create")}}" role="form" enctype="multipart/form-data">
+                <form method="post" action="{{url("/admin/product/edit",["product"=>$product->id])}}" role="form" enctype="multipart/form-data">
                     @csrf
                     <div class="card-body">
-                            @include("admin.html.form.input",[
-                                "label"=>"Product Name",
-                                "key"=>"name",
-                                "type"=>"text",
-                                "required"=>true
-                            ])
+                        @include("admin.html.form.input",[
+                            "label"=>"Product Name",
+                            "key"=>"name",
+                            "type"=>"text",
+                            "required"=>true,
+                            "value"=>$product->name
+                        ])
                         @include("admin.html.form.input",[
                              "label"=>"Product Price",
                              "key"=>"price",
                              "type"=>"number",
-                             "required"=>true
+                             "required"=>true,
+                              "value"=>$product->price
                          ])
 
                         @include("admin.html.form.input",[
                            "label"=>"Product Thumbnail",
                            "key"=>"thumbnail",
                            "type"=>"file",
-                           "required"=>true
+                           "required"=>false,
+                            "value"=>$product->thumbnail
                        ])
 
 
                         <div class="form-group">
                             <label>Description</label>
-                            <textarea class="@error("description")is-invalid @enderror form-control" name="description">{{old("description")}} </textarea>
+                            <textarea class="@error("description")is-invalid @enderror form-control" name="description">{{$product->description}} </textarea>
                             @error("description")
                             <p class="text-danger">{{$message}}</p>
                             @enderror
@@ -55,14 +58,15 @@
                           "label"=>"Product Quantity",
                           "key"=>"qty",
                           "type"=>"number",
-                          "required"=>true
+                          "required"=>true,
+                           "value"=>$product->qty
                       ])
 
                         <div class="form-group">
                             <label>Category</label>
                             <select name="category_id" class="form-control select2" required>
                                 @foreach($categories as $item)
-                                    <option @if(old("category_id")== $item->id) selected @endif value="{{$item->id}}"> {{$item->name}} </option>
+                                    <option @if($product->category_id == $item->id) selected @endif value="{{$item->id}}"> {{$item->name}} </option>
                                 @endforeach
                             </select>
                         </div>
@@ -75,8 +79,8 @@
                 </form>
             </div>
         </div>
-        </div>
-        </div>
+    </div>
+    </div>
     </div>
 @endsection
 @section("custom_js")

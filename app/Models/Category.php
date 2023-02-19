@@ -16,4 +16,10 @@ class Category extends Model
         "image",
         "status"
     ];
+    public function Products(){
+        return $this->hasMany(Products::class);
+    }
+    public function FirstProducts(){
+        return $this->hasOne(Products::class)->orderBy("price","desc");
+    }
 }

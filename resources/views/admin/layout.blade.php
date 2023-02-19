@@ -567,6 +567,7 @@
             <!-- Control sidebar content goes here -->
         </aside>
         <!-- /.control-sidebar -->
+        @include('admin.html.notifilecation')
         @include('admin.html.js')
         @yield("custom_js")
     </div>
