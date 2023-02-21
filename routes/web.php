@@ -23,6 +23,7 @@ Route::get('/detail/{product}', [App\Http\Controllers\WebController::class,"deta
 Route::post('/addToCart/{product}', [App\Http\Controllers\WebController::class,"addToCart"])->name("add_to_cart");
 Route::get('/shopping-cart', [App\Http\Controllers\WebController::class,"cart"]);
 Route::get('/checkout',[WebController::class,"checkout"]);
+Route::post('/checkout',[WebController::class,"placeHolder"]);
 Route::get('/remove-cart/{product}',[WebController::class,"remove"]);
 
 //  product

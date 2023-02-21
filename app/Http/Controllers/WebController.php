@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\MailOrder;
 use App\Models\Category;
+use App\Models\Order;
 use App\Models\Products;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class WebController extends Controller
 {
@@ -96,4 +99,51 @@ class WebController extends Controller
         session(["cart"=>$cart]);
         return redirect()->back();
     }
+    public function placeHolder(Request $request){
+        $request ->validate([
+           "firstname"=>"required",
+            "lastname"=>"required",
+            "country"=>"required",
+            "address"=>"required",
+            "city"=>"required",
+            "zip"=>"required",
+            "phone"=>"required",
+            "email"=>"required",
+        ]);
+        $cart = session()->has("cart") && is_array(session("cart"))?session("cart"):[];
+        if (count($cart)==0)return abort(404);
+        $grand_total = 0;
+        $can_checkout = true;
+        foreach ($cart as $item){
+            $grand_total += $item->price * $item->buy_qty;
+            if($can_checkout && $item->qty ==0){
+                $can_checkout =  false;
+            }
+        }
+        if (!$can_checkout) return abort(404);
+
+        $order = Order::create([
+            "order_date"=>now(),
+            "grand_total"=>0,
+            "shipping_address"=>$request->get("address"),
+            "customer_tel"=>$request->get("phone"),
+//            "status",
+            "fullname"=>$request->get("firstname")."".$request->get("lastname"),
+            "country"=>$request->get("country"),
+            "city"=>$request->get("city"),
+            "zip"=>$request->get("zip"),
+            "email"=>$request->get("email")
+        ])->createItem();
+//        foreach ($cart as $item){
+//            DB::table("order_products")->insert([
+//               "qty"=>$item->buy_qty,
+//               "price"=>$item->price,
+//               "order_id"=>$order->id,
+//               "product_id"=>$item->id,
+//            ]);
+//            session()->forget("cart");
+
+            return redirect()->to("/");
+        }
+//    }
 }
