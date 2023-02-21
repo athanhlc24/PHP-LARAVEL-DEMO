@@ -79,3 +79,20 @@
     </div>
     <div class="row">
 @endsection
+@section("custom_js")
+            <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
+            <script>
+
+                // Enable pusher logging - don't include this in production
+                Pusher.logToConsole = true;
+
+                var pusher = new Pusher('5f3b2fce49b16c7bfa0e', {
+                    cluster: 'ap1'
+                });
+
+                var channel = pusher.subscribe('my-channel');
+                channel.bind('my-event', function(data) {
+                    alert(data.message+": "+data.order_id);
+                });
+            </script>
+@endsection
